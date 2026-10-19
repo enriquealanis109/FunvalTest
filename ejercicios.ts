@@ -157,10 +157,16 @@ console.log('Se aplica envio gratis?: '+aplicoEnvioGratis);
      3. NO tiene un email inválido (usa '!').
    - Imprime 'formularioValido'.
    -------------------------------------------------------------------------- */
+   let longitudPassword = 8;
+   let aceptoTerminos : boolean=true;
+   let tieneEmailInvalido : boolean=false;
+   let formularioValido : boolean;
+   formularioValido= longitudPassword >=8 && aceptoTerminos &&tieneEmailInvalido;
+   console.log('Su formulario es valido? : '+formularioValido);
 
 /* ==========================================================================
    RETO INTEGRADOR: Batalla por Turnos (Primera Clase TypeScript)
-   
+
    Instrucciones:
    Escribe el código necesario debajo de cada indicación respetando
    el tipado explícito (number, boolean, string) y los operadores requeridos.
@@ -168,20 +174,27 @@ console.log('Se aplica envio gratis?: '+aplicoEnvioGratis);
 
 // 1. Declara la variable 'puntosDeVida' de tipo number con un valor inicial de 100.
 //    (Usa 'let' ya que su valor cambiará a lo largo del combate).
+    let puntosDeVida:number=100;
 
 // 2. Declara la variable 'tieneEscudo' de tipo boolean con el valor true.
-
+    let tieneEscudo :boolean =true;
 // 3. ¡Ataque enemigo! Resta 25 puntos de vida usando el operador de autoasignación '-='.
-
+    puntosDeVida -=25;  
 // 4. El personaje toma una poción mínima: incrementa 'puntosDeVida' en 1 usando '++'.
-
+    puntosDeVida ++;
 // 5. Declara una variable 'sigueVivo' de tipo boolean que evalúe si 'puntosDeVida' es mayor que 0.
-
+    let sigueVivo: boolean;
+    sigueVivo = puntosDeVida > 0;
 // 6. Declara una variable 'alertaPeligro' de tipo boolean.
 //    Debe ser true solo si 'puntosDeVida' es menor a 50 Y el jugador NO tiene escudo (usa && y !).
-
+    let alertaPeligro:boolean;
+    alertaPeligro = puntosDeVida < 50 && !tieneEscudo;
 // 7. Imprime en consola todos los resultados para verificar el estado final del jugador:
 //    - Puntos de vida actuales
+    console.log('El jugador tiene '+puntosDeVida+' puntos de vida');
 //    - Si tiene escudo activo
+    console.log('El jugador tiene escudo?: '+tieneEscudo);
 //    - Si sigue vivo
+    console.log('El jugador sigue vivo?: '+sigueVivo);
 //    - Si está en alerta de peligro
+    console.log('El jugador esta en alerta de peligro?: '+alertaPeligro);
