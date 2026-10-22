@@ -1,6 +1,5 @@
 import readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
-import { isOptionalChain } from 'typescript';
 
 const rl = readline.createInterface({ input, output });
 // 🚫 No eliminar las líneas de arriba ⬆️
@@ -12,9 +11,44 @@ let userName : string= 'Enrique19'
 
 console.log(systemName + ' '+ version + '\n¡Bienvenido, ' + userName +'!');
 
+interface task{
+    id: number;
+    titulo: string;
+    completado: boolean;
+}
 //Declarar un arreglo vacio
-let tituloTareas : string[] = [];
+let tituloTareas : task[] = [];
+let id: number =1;
 let opcion : string;
+
+const addTask = (titulo:string) => {
+    const nuevaTarea: task = {id: id, titulo:titulo, completado: false};
+    tituloTareas.push(nuevaTarea);
+    id++;
+    console.log(`Tarea "${titulo}" agregada`);
+}
+
+const listTask = () => {
+    if(tituloTareas.length === 0){
+        console.log('No hay tareas registradas!');
+    }
+    for(let i =0; i < tituloTareas.length; i++){
+        let estado ='pendiente';
+        if (tituloTareas[i].completado){
+            estado='completado';
+        }
+        console.log(tituloTareas[i].id +".- "+ tituloTareas[i].titulo +" - "+ estado );
+    }
+}
+
+const removeTask=()=>{
+    const eliminada= tituloTareas.pop();
+    if (eliminada === undefined) {
+        console.log('No hay tarea para eliminar');
+    }else{
+        console.log('La tarea ' +eliminada.titulo+' ha sido eliminada');
+    }
+}
 
 do{
     console.log('\nMenú de Tareas');
@@ -28,26 +62,15 @@ do{
     switch(opcion){
         case '1':
             const titulo: string = await rl.question('Escribe el nombre de la tarea: ');
-            tituloTareas.push(titulo);
-            console.log(`Tarea "${titulo}" agregada`);
+            addTask(titulo);
             break;
 
         case '2':
-        const eliminada = tituloTareas.pop(); 
-            if(eliminada === undefined){
-                console.log('No hay tarea para eliminar');
-            }else{
-                console.log(`La tarea ${eliminada} ha sido eliminada`);
-            }
+            removeTask();
             break;
         
         case '3':
-            if(tituloTareas.length === 0){
-                console.log('No hay tareas registradas!');
-            }
-            for(let i=0; i < tituloTareas.length; i++){
-                console.log(`${i+1}. ${tituloTareas[i]}`)
-            }
+            listTask();
             break;
 
         case '4':
@@ -60,3 +83,5 @@ do{
 }
     while(opcion !== '4');
 rl.close();
+
+
