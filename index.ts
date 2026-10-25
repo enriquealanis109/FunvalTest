@@ -22,11 +22,28 @@ let tituloTareas: task[] = [];
 let id: number = 1;
 let opcion: string;
 
-const addTask = (titulo: string) => {
-  const nuevaTarea: task = { id: id, titulo: titulo, completado: false };
-  tituloTareas.push(nuevaTarea);
-  id++;
-  console.log(`Tarea "${titulo}" agregada`);
+const saveToDB = (tarea: task): Promise<void> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(`Tarea "${tarea.titulo}" guardada en la base de datos`);
+      resolve();
+    }, 2000);
+  });
+};
+
+const addTask = async (titulo: string) => {
+  try {
+    if (titulo === "") {
+      throw new Error("El titulo no puede estar vacio");
+    }
+    const nuevaTarea: task = { id: id, titulo: titulo, completado: false };
+    await saveToDB(nuevaTarea);
+    tituloTareas.push(nuevaTarea);
+    id++;
+    console.log(`Tarea "${titulo}" agregada`);
+  } catch (error) {
+    console.log((error as Error).message);
+  }
 };
 
 const listTask = () => {
@@ -89,7 +106,7 @@ do {
       const titulo: string = await rl.question(
         "Escribe el nombre de la tarea: ",
       );
-      addTask(titulo);
+      await addTask(titulo);
       break;
 
     case "2":
