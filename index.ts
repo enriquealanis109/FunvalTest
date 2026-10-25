@@ -17,25 +17,6 @@ interface task {
   completado: boolean;
 }
 
-//Funciones de filtrado y modificacion
-const markCompleted = (idTarea: number) => {
-  const tarea = tituloTareas.find((t) => t.id === idTarea);
-  if (tarea) {
-    tarea.completado = true;
-    console.log(`Tarea "${tarea.titulo}" marcada como completada`);
-  } else {
-    console.log("No existe tarea con ese id");
-  }
-};
-
-const filterPending = () => {
-  return tituloTareas.filter((t) => t.completado === false);
-};
-
-const filterCompleted = () => {
-  return tituloTareas.filter((t) => t.completado === true);
-};
-
 //Declarar un arreglo vacio
 let tituloTareas: task[] = [];
 let id: number = 1;
@@ -70,6 +51,25 @@ const removeTask = () => {
   } else {
     console.log("La tarea " + eliminada.titulo + " ha sido eliminada");
   }
+};
+
+//Funciones de filtrado y modificacion
+const markCompleted = (idTarea: number) => {
+  const tarea = tituloTareas.find((t) => t.id === idTarea);
+  if (tarea) {
+    tarea.completado = true;
+    console.log(`Tarea "${tarea.titulo}" marcada como completada`);
+  } else {
+    console.log("No existe tarea con ese id");
+  }
+};
+
+const filterPending = () => {
+  return tituloTareas.filter((t) => t.completado === false);
+};
+
+const filterCompleted = () => {
+  return tituloTareas.filter((t) => t.completado === true);
 };
 
 do {
